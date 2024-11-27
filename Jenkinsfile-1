@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    tools {nodejs "node"}
+    stages {
+        stage('Example') {
+            steps {
+                script {
+                   git branch: 'main',
+                   url: 'https://github.com/sondereggern-bzz/jenkinsNic.git'
+                }
+            }
+        }
+
+        stage('install jest-cli') {
+            steps {
+                sh 'npm install jest-cli -g'
+            }
+        }
+
+        stage('install dependencies'){
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('install test'){
+            steps {
+                sh 'npm test'
+            }
+        }
+    }
+}
